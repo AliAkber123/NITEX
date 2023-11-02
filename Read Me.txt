@@ -1,0 +1,90 @@
+1. IMPORTING LIBRARIES AND LOADING DATA:
+Two user input for the path of the dataset :
+One for the Train dataset
+Another is for Test Dataset
+
+Example :     Train = '/kaggle/input/fashionmnist/fashion-mnist_train.csv'
+              Test  = '/kaggle/input/fashionmnist/fashion-mnist_test.csv'
+
+
+
+
+2. DATA ANALYSIS: (Task Number : 1)
+Pie charts are created to visualize the distribution of classes in both the training and testing datasets.
+Random samples from the training dataset are displayed as images in a grid for data exploration.
+Individual images are also displayed.
+
+Other information: Number of data in Train_data : 60000
+                   Number of data in Test_data  : 10000
+		   Number of classes            : 10
+         
+
+3. MODEL CREATION (Task : 2):
+A simple Convolutional Neural Network (CNN) model is created using the Keras library.
+The model consists of convolutional layers, batch normalization, max-pooling layers, dropout layers, and dense layers.
+
+
+
+
+4. TRAINING THE CNN MODEL:
+The CNN model is trained using the training data (X_train and y_train) with specified batch size=512 and epochs=2.
+A custom callback is used to collect indices of incorrect predictions from last epoch. 
+
+
+
+
+5. Extracting Incorrect Predictions:
+A custom callback class IncorrectPredictionsCallback is defined to track and store indices of incorrect 
+predictions during training.
+After training, the indices of incorrectly predicted samples from the training dataset are extracted together.
+
+
+
+
+6.HUMAN-IN-THE-LOOP (Task : 3)
+By analysing the data which are incorrectly predicted in the last epoch, we have noticed that a lot of the data
+are labeled incorrectly. Which will obviously decrease the performance of the model because the model will learn 
+wrong information about the samples. Human experts can analyse the samples annotate the samples correctly.
+
+A user input will take 'row number' as input from the "Wrong_predict" dataframe for this. That sample will be 
+displayed with the Actual Label (Sample Picture: Bag, True Label: Bag). When we see (Sample Picture: Bag, True
+Label: Shirt), it means that data has been labeled incorrectly. Human experts can analyze and recognize the 
+sample, and then another user input will take the Actual_Updated_True_Value, which will update the incorrect
+label, such as (Sample Picture: Bag, True label: Bag). The loop will continue until the data is exhausted or 
+press 'E' to exit.
+
+Wrong Labels are removed from the training set and Updated Labels (Need human expertise to check for all samples)
+are added to an new train set.
+
+
+
+
+
+7. Visualizing Training History:
+Training loss, validation loss, accuracy, and validation accuracy are plotted to visualize the model's training history.
+
+
+
+
+8. Preparing Data for Retraining on Corrected Label by Human Expert:
+Feed the model with accurate true labels that were not previously present. 
+Without this step, the same code with epoch=50 will yield 93% accuracy.
+
+However, rather than focusing solely on accuracy, we discovered the data that is causing the model to predict incorrectly.
+With an 86% training accuracy, the number of incorrectly predicted values is close to 7000. Human experts (I) manually 
+checked the first 10 data points and discovered 4 incorrect labels.As a result, the number of incorrect labels in 7000 
+data points cannot be ignored. It has a significant impact on the model's overall accuracy. Manually examining 7000 is 
+a difficult task. However, after correcting the true label, the model must perform better than 93/94%.
+
+
+
+
+
+9.Documentation (Task : 4)
+Attached (This file)
+
+
+
+
+10.Code Structure (Task : 5)
+Attached (requirement.txt) 
